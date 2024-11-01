@@ -1,0 +1,31 @@
+Select c.CourseTitle, COUNT(p.LearnerID)
+from courses c, purchase p
+where c.CourseID=p.CourseID
+group by c.CourseTitle
+
+
+Select MAX(lcount) from(
+
+Select c.CourseTitle, COUNT(p.LearnerID) as lcount
+from courses c, purchase p
+where c.CourseID=p.CourseID
+group by c.CourseTitle)
+
+
+Select CourseID, MAX(lcount) from(
+
+Select c.CourseTitle, COUNT(p.LearnerID) as lcount
+from courses c, purchase p
+where c.CourseID=p.CourseID
+group by c.CourseTitle
+ )purchase;
+
+
+Select c.CourseTitle, COUNT(p.LearnerID) as lcount from courses c, purchase p where c.CourseID=p.CourseID group by c.CourseTitle order by lcount desc limit 3;
+
+
+Select p.LearnerID, ca.CategoryName
+from courses c, categories ca, purchase p 
+where c.CourseID=p.CourseID and ca.CategoryID=c.CategoryID 
+and p.LearnerID=2
+group by ca.CategoryName

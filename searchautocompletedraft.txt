@@ -1,0 +1,53 @@
+  $(document).ready(function() {
+                      $("#searchbox").keyup(function appear() {
+                        console.log('key up activated');
+
+                        var query = $("#searchbox").val();
+                        var sug = document.getElementById('response');
+
+
+                        if (query.length > 0) {
+                          sug.style.display = 'block';
+                          $.ajax({
+                            url: "index.php",
+                            method: "POST",
+                            data: {
+                              search: 1,
+                              q: query
+                            },
+                            success: function(data) { //if this ajax code is succeeded
+                              // console.log(data);
+                              $("#response").html(data);
+
+
+                            },
+                            dataType: 'text'
+                          });
+                        } else {
+
+                          sug.style.display = 'none';
+                          console.log('no text');
+
+                        }
+
+
+                      });
+                      $(document).on('click', 'li', function() {
+                        var search = $(this).text();
+                        $("#searchbox").val(search);
+                        $("#response").html("");
+                      });
+
+
+                  
+
+                    document.addEventListener('click', function hide(event) {
+                      console.log('user clicked: ', event.target);
+
+                      const box = document.getElementById('response');
+
+                      if (!box.contains(event.target)) {
+                        box.style.display = 'none';
+                      }
+                    });
+                  });
